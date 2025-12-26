@@ -42,7 +42,7 @@ export function BottomNav({ activeView, onViewChange, isManager }: BottomNavProp
                 }
               `}
             >
-              <Icon className={`w-5 h-5 ${isActive ? "drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" : ""}`} />
+              <Icon className={`w-5 h-5 ${isActive ? "drop-shadow-[0_0_8px_var(--primary-glow)]" : ""}`} />
               <span className="text-xs">{item.label}</span>
               {isActive && (
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-1 rounded-t-full bg-primary" />

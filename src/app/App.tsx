@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ThemeProvider } from "./contexts/theme-context";
 import { TopBar } from "./components/top-bar";
 import { Sidebar } from "./components/sidebar";
 import { BottomNav } from "./components/bottom-nav";
@@ -14,7 +15,8 @@ import { SwapRequestModal } from "./modals/swap-request-modal";
 import { ManagerRequestDetailModal } from "./modals/manager-request-detail-modal";
 import { ShiftDetailModal } from "./modals/shift-detail-modal";
 import { Shift } from "./components/shift-card";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
+import { ThemedToaster } from "./components/themed-toaster";
 
 // Sample data
 const sampleShifts: Shift[] = [
@@ -133,6 +135,7 @@ export default function App() {
   const [showSwapModal, setShowSwapModal] = useState(false);
   const [showManagerModal, setShowManagerModal] = useState(false);
   const [showShiftDetailModal, setShowShiftDetailModal] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleShiftClick = (shift: Shift) => {
     setSelectedShift(shift);
@@ -231,70 +234,75 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <Toaster position="top-center" richColors />
-      
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar
+    <ThemeProvider>
+      <div className="min-h-screen flex flex-col bg-background text-foreground">
+        <ThemedToaster />
+        
+        <div className="flex flex-1 overflow-hidden">
+          <Sidebar
+            activeView={activeView}
+            onViewChange={setActiveView}
+            isManager={isManager}
+            isOpen={sidebarOpen}
+            onToggle={() => setSidebarOpen(!sidebarOpen)}
+          />
+
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <TopBar
+              title="ShiftIT"
+              notificationCount={3}
+              onNotificationClick={() => setActiveView("notifications")}
+              onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+            />
+
+            {renderView()}
+          </div>
+        </div>
+
+        <BottomNav
           activeView={activeView}
           onViewChange={setActiveView}
           isManager={isManager}
         />
 
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <TopBar
-            title="ShiftIT"
-            notificationCount={3}
-            onNotificationClick={() => setActiveView("notifications")}
+        {/* Modals */}
+        {showSwapModal && selectedShift && (
+          <SwapRequestModal
+            shift={selectedShift}
+            onClose={() => {
+              setShowSwapModal(false);
+              setSelectedShift(null);
+            }}
+            onSubmit={handleSwapSubmit}
           />
+        )}
 
-          {renderView()}
-        </div>
+        {showManagerModal && selectedShift && (
+          <ManagerRequestDetailModal
+            shift={selectedShift}
+            onClose={() => {
+              setShowManagerModal(false);
+              setSelectedShift(null);
+            }}
+            onApprove={handleApprove}
+            onReject={handleReject}
+          />
+        )}
+
+        {showShiftDetailModal && selectedShift && (
+          <ShiftDetailModal
+            shift={selectedShift}
+            onClose={() => {
+              setShowShiftDetailModal(false);
+              setSelectedShift(null);
+            }}
+            onCancel={() => {
+              setShowShiftDetailModal(false);
+              handleCancelShift(selectedShift);
+            }}
+          />
+        )}
       </div>
-
-      <BottomNav
-        activeView={activeView}
-        onViewChange={setActiveView}
-        isManager={isManager}
-      />
-
-      {/* Modals */}
-      {showSwapModal && selectedShift && (
-        <SwapRequestModal
-          shift={selectedShift}
-          onClose={() => {
-            setShowSwapModal(false);
-            setSelectedShift(null);
-          }}
-          onSubmit={handleSwapSubmit}
-        />
-      )}
-
-      {showManagerModal && selectedShift && (
-        <ManagerRequestDetailModal
-          shift={selectedShift}
-          onClose={() => {
-            setShowManagerModal(false);
-            setSelectedShift(null);
-          }}
-          onApprove={handleApprove}
-          onReject={handleReject}
-        />
-      )}
-
-      {showShiftDetailModal && selectedShift && (
-        <ShiftDetailModal
-          shift={selectedShift}
-          onClose={() => {
-            setShowShiftDetailModal(false);
-            setSelectedShift(null);
-          }}
-          onCancel={() => {
-            setShowShiftDetailModal(false);
-            handleCancelShift(selectedShift);
-          }}
-        />
-      )}
-    </div>
+    </ThemeProvider>
   );
 }

@@ -1,6 +1,9 @@
-import { User, Bell, Lock, Globe, Moon, LogOut } from "lucide-react";
+import { User, Bell, Lock, Globe, Moon, Sun, LogOut } from "lucide-react";
+import { useTheme } from "../contexts/theme-context";
 
 export function SettingsView() {
+  const { theme, toggleTheme } = useTheme();
+  
   return (
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-6">
       <div className="max-w-3xl mx-auto p-4 lg:p-6">
@@ -128,20 +131,29 @@ export function SettingsView() {
           <div className="rounded-lg border border-card-border bg-card">
             <div className="p-4 border-b border-border">
               <div className="flex items-center gap-3">
-                <Moon className="w-5 h-5 text-primary" />
+                {theme === 'dark' ? (
+                  <Moon className="w-5 h-5 text-primary" />
+                ) : (
+                  <Sun className="w-5 h-5 text-primary" />
+                )}
                 <h3>מראה</h3>
               </div>
             </div>
             <div className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="mb-1">מצב כהה</div>
+                  <div className="mb-1">{theme === 'dark' ? 'מצב כהה' : 'מצב בהיר'}</div>
                   <div className="text-sm text-muted-foreground">
-                    תמיד פעיל (ברירת מחדל)
+                    לחץ להחלפה בין מצב כהה לבהיר
                   </div>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" className="sr-only peer" defaultChecked disabled />
+                  <input 
+                    type="checkbox" 
+                    className="sr-only peer" 
+                    checked={theme === 'dark'}
+                    onChange={toggleTheme}
+                  />
                   <div className="w-11 h-6 bg-accent peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                 </label>
               </div>
