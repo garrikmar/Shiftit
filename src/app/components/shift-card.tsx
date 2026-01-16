@@ -21,6 +21,8 @@ interface ShiftCardProps {
   compact?: boolean;
   showActions?: boolean;
   onCancel?: () => void;
+  onTake?: () => void;
+  takeLabel?: string;
 }
 
 const statusConfig: Record<ShiftStatus, { label: string; className: string }> = {
@@ -31,7 +33,7 @@ const statusConfig: Record<ShiftStatus, { label: string; className: string }> = 
   open: { label: "פתוח", className: "bg-primary/20 text-primary border-primary/30" },
 };
 
-export function ShiftCard({ shift, onClick, compact, showActions, onCancel }: ShiftCardProps) {
+export function ShiftCard({ shift, onClick, compact, showActions, onCancel, onTake, takeLabel }: ShiftCardProps) {
   const statusStyle = statusConfig[shift.status];
 
   return (
@@ -94,6 +96,20 @@ export function ShiftCard({ shift, onClick, compact, showActions, onCancel }: Sh
             className="w-full px-4 py-2 rounded-lg bg-destructive/10 text-destructive border border-destructive/30 hover:bg-destructive/20 transition-colors"
           >
             לא יכול/ה להגיע
+          </button>
+        </div>
+      )}
+
+      {onTake && (
+        <div className="mt-4 pt-4 border-t border-border">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onTake();
+            }}
+            className="w-full px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary-glow/30 transition-all"
+          >
+            {takeLabel || "לקיחת משמרת"}
           </button>
         </div>
       )}
