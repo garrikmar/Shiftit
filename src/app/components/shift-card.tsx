@@ -62,7 +62,7 @@ export function ShiftCard({ shift, onClick, compact, showActions, onCancel, onTa
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Clock className="w-4 h-4" />
           <span>{shift.date}</span>
-          <span className="text-foreground">{shift.startTime}–{shift.endTime}</span>
+          <span className="text-foreground" dir="ltr">{shift.startTime}–{shift.endTime}</span>
         </div>
         
         <div className="flex items-center gap-2 text-sm text-muted-foreground">

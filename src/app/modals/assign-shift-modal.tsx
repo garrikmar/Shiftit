@@ -101,7 +101,7 @@ export function AssignShiftModal({ shift, teamMembers, onClose, onAssign, allSch
               טרם שובץ
             </div>
           </div>
-          <div className="flex flex-col gap-1 text-sm text-muted-foreground">
+          <div className="flex flex-col gap-1 text-sm text-muted-foreground" dir="ltr">
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
               <span>{shift.date} | {shift.time}</span>

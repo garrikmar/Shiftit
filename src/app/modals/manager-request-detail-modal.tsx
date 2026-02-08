@@ -46,7 +46,7 @@ export function ManagerRequestDetailModal({ shift, onClose, onApprove, onReject 
               <Clock className="w-5 h-5 text-muted-foreground" />
               <div>
                 <div className="text-sm text-muted-foreground">שעות</div>
-                <div>{shift.startTime}–{shift.endTime}</div>
+                <div dir="ltr">{shift.startTime}–{shift.endTime}</div>
               </div>
             </div>
             <div className="flex items-center gap-3">

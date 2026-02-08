@@ -90,7 +90,7 @@ export function MemberShiftsModal({ member, onClose, shifts }: MemberShiftsModal
                             : 'bg-primary/10 border-primary text-primary'}
                         `}>
                           <div className="font-bold truncate">{shift.title}</div>
-                          <div className="opacity-80">{shift.time}</div>
+                          <div className="opacity-80" dir="ltr">{shift.time}</div>
                         </div>
                       ))}
                     </div>

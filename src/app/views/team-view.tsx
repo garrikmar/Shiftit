@@ -140,7 +140,7 @@ export function TeamView() {
                     חסר איוש
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground" dir="ltr">
                   <Clock className="w-4 h-4" />
                   <span>{shift.time}</span>
                 </div>

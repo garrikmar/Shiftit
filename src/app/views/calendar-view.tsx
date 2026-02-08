@@ -91,7 +91,7 @@ export function CalendarView({shifts: initialShifts, onShiftClick, onCancelShift
                                 <div className="space-y-2 mt-6">
                                     {["06:00", "09:00", "12:00", "15:00", "18:00", "21:00"].map((time, i) => (
                                         <div key={time} className="flex gap-2">
-                                            <div className="w-16 text-sm text-muted-foreground pt-2">{time}</div>
+                                            <div className="w-16 text-sm text-muted-foreground pt-2" dir="ltr">{time}</div>
                                             <div className="flex-1 grid grid-cols-7 gap-2">
                                                 {weekDays.map((_, dayIndex) => {
                                                     // Jan 2026 starts on Thursday (index 4 in 0-indexed Sun-Sat)
@@ -152,7 +152,7 @@ export function CalendarView({shifts: initialShifts, onShiftClick, onCancelShift
                                                         className="p-1 rounded bg-primary/10 border-r-2 border-primary cursor-pointer hover:bg-primary/20 transition-colors mb-1"
                                                     >
                                                         <div className="text-[10px] font-medium truncate">{shift.title}</div>
-                                                        <div className="text-[10px] text-muted-foreground truncate">{shift.startTime}</div>
+                                                        <div className="text-[10px] text-muted-foreground truncate" dir="ltr">{shift.startTime}</div>
                                                     </div>
                                                 )}
                                             </div>
