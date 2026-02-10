@@ -7,12 +7,21 @@ interface TeamCalendarProps {
   teamMembers: TeamMember[];
   uncoveredShifts: UncoveredShift[];
   onSelectUncoveredShift: (shift: UncoveredShift) => void;
+  openMonth?: string;
+  onOpenMonthChange?: (openMonth: string) => void;
 }
 
-export function TeamCalendar({ months, teamMembers, uncoveredShifts, onSelectUncoveredShift }: TeamCalendarProps) {
+export function TeamCalendar({ months, teamMembers, uncoveredShifts, onSelectUncoveredShift, openMonth, onOpenMonthChange }: TeamCalendarProps) {
   return (
     <div className="mb-6 rounded-lg border border-card-border bg-card overflow-hidden">
-      <Accordion type="multiple" defaultValue={["month-2"]} className="w-full">
+      <Accordion 
+        type="single" 
+        collapsible
+        value={openMonth} 
+        defaultValue={openMonth ? undefined : "month-2"} 
+        onValueChange={onOpenMonthChange}
+        className="w-full"
+      >
         {months.map((m, idx) => {
           const monthShifts = generateAllShifts(teamMembers, uncoveredShifts, m.month, m.year);
           const daysInMonth = new Date(m.year, m.month + 1, 0).getDate();

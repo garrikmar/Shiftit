@@ -1,15 +1,24 @@
 import { TeamMember } from "../../data/mock-data";
 
-interface TeamMembersTableProps {
-  teamMembersWithFairness: TeamMember[];
-  onSelectMember: (member: TeamMember) => void;
+interface TeamMemberWithMonthlyStats extends TeamMember {
+  stats: TeamMember["stats"] & {
+    monthlyShifts?: number;
+    monthlyNights?: number;
+    monthlyWeekends?: number;
+  };
 }
 
-export function TeamMembersTable({ teamMembersWithFairness, onSelectMember }: TeamMembersTableProps) {
+interface TeamMembersTableProps {
+  teamMembersWithFairness: TeamMemberWithMonthlyStats[];
+  onSelectMember: (member: TeamMember) => void;
+  selectedMonthName?: string;
+}
+
+export function TeamMembersTable({ teamMembersWithFairness, onSelectMember, selectedMonthName }: TeamMembersTableProps) {
   return (
     <div className="rounded-lg border border-card-border bg-card overflow-hidden">
       <div className="p-4 border-b border-border">
-        <h3>חברי הצוות</h3>
+        <h3>חברי הצוות {selectedMonthName ? `- ${selectedMonthName}` : ""}</h3>
       </div>
 
       <div className="overflow-x-auto">
@@ -43,9 +52,9 @@ export function TeamMembersTable({ teamMembersWithFairness, onSelectMember }: Te
                   </div>
                 </td>
                 <td className="px-4 py-4 text-muted-foreground">{member.role}</td>
-                <td className="px-4 py-4">{member.stats.shifts}</td>
-                <td className="px-4 py-4">{member.stats.nights}</td>
-                <td className="px-4 py-4">{member.stats.weekends}</td>
+                <td className="px-4 py-4">{member.stats.monthlyShifts ?? member.stats.shifts}</td>
+                <td className="px-4 py-4">{member.stats.monthlyNights ?? member.stats.nights}</td>
+                <td className="px-4 py-4">{member.stats.monthlyWeekends ?? member.stats.weekends}</td>
                 <td className="px-4 py-4">
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-2 bg-accent rounded-full overflow-hidden max-w-[100px]">
