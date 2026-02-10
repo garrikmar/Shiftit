@@ -1,4 +1,4 @@
-import { Calendar, Users, Briefcase, FileText, Settings, Home, Bell, X } from "lucide-react";
+import { Calendar, Users, Briefcase, FileText, Settings, Home, Bell, X, Plus } from "lucide-react";
 
 interface SidebarProps {
   activeView: string;
@@ -12,6 +12,7 @@ export function Sidebar({ activeView, onViewChange, isManager, isOpen = false, o
   const employeeMenuItems = [
     { id: "calendar", label: "לוח שנה", icon: Calendar },
     { id: "my-shifts", label: "המשמרות שלי", icon: Home },
+    { id: "add-shift", label: "מילוי משמרות", icon: Plus },
     { id: "open-shifts", label: "משמרות פתוחות", icon: Briefcase },
     { id: "requests", label: "בקשות שלי", icon: FileText },
     { id: "notifications", label: "התראות", icon: Bell },
@@ -21,6 +22,7 @@ export function Sidebar({ activeView, onViewChange, isManager, isOpen = false, o
     { id: "calendar", label: "לוח שנה", icon: Calendar },
     { id: "my-shifts", label: "המשמרות שלי", icon: Home },
     { id: "team", label: "ניהול צוות", icon: Users },
+    { id: "add-shift", label: "מילוי משמרות", icon: Plus },
     { id: "pending", label: "בקשות ממתינות", icon: FileText },
     { id: "open-shifts", label: "משמרות פתוחות", icon: Briefcase },
     { id: "notifications", label: "התראות", icon: Bell },

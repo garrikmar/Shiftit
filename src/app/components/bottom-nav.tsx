@@ -1,4 +1,4 @@
-import { Calendar, Home, Briefcase, FileText, Users } from "lucide-react";
+import { Calendar, Home, Briefcase, FileText, Users, Plus } from "lucide-react";
 
 interface BottomNavProps {
   activeView: string;
@@ -12,6 +12,7 @@ export function BottomNav({ activeView, onViewChange, isManager }: BottomNavProp
     { id: "my-shifts", label: "המשמרות", icon: Home },
     { id: "open-shifts", label: "פתוחות", icon: Briefcase },
     { id: "requests", label: "בקשות", icon: FileText },
+    { id: "add-shift", label: "הוספה", icon: Plus },
   ];
 
   const managerMenuItems = [
@@ -19,6 +20,7 @@ export function BottomNav({ activeView, onViewChange, isManager }: BottomNavProp
     { id: "my-shifts", label: "שלי", icon: Home },
     { id: "pending", label: "ממתינות", icon: FileText },
     { id: "team", label: "צוות", icon: Users },
+    { id: "add-shift", label: "הוספה", icon: Plus },
   ];
 
   const menuItems = isManager ? managerMenuItems : employeeMenuItems;

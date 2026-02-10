@@ -11,6 +11,7 @@ import { ManagerPendingView } from "./views/manager-pending-view";
 import { TeamView } from "./views/team-view";
 import { NotificationsView } from "./views/notifications-view";
 import { SettingsView } from "./views/settings-view";
+import { AddShiftView } from "./views/add-shift-view";
 import { SwapRequestModal } from "./modals/swap-request-modal";
 import { ManagerRequestDetailModal } from "./modals/manager-request-detail-modal";
 import { ShiftDetailModal } from "./modals/shift-detail-modal";
@@ -221,6 +222,8 @@ export default function App() {
         return <NotificationsView />;
       case "settings":
         return <SettingsView />;
+      case "add-shift":
+        return <AddShiftView />;
       default:
         return (
           <div className="flex-1 flex items-center justify-center">
