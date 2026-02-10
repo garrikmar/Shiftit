@@ -15,10 +15,11 @@ export function BottomNav({ activeView, onViewChange, isManager }: BottomNavProp
   ];
 
   const managerMenuItems = [
-    { id: "calendar", label: "המשמרות", icon: Calendar },
+    { id: "calendar", label: "שלי", icon: Calendar },
     { id: "pending", label: "ממתינות", icon: FileText },
+    { id: "open-shifts", label: "פתוחות", icon: Briefcase },
     { id: "team", label: "צוות", icon: Users },
-    { id: "add-shift", label: "הוספה", icon: Plus },
+    { id: "add-shift", label: "מילוי", icon: Plus },
   ];
 
   const menuItems = isManager ? managerMenuItems : employeeMenuItems;
@@ -35,7 +36,7 @@ export function BottomNav({ activeView, onViewChange, isManager }: BottomNavProp
               key={item.id}
               onClick={() => onViewChange(item.id)}
               className={`
-                flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-lg transition-all duration-200 min-w-[70px]
+                relative flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-lg transition-all duration-200 min-w-[70px]
                 ${isActive 
                   ? "text-primary" 
                   : "text-muted-foreground"
