@@ -12,16 +12,29 @@ import { toast } from "sonner";
 
 type ShiftType = "morning" | "evening" | "night";
 
+function formatDateLocal(date: Date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function formatDateDisplay(date: Date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${d}/${m}/${y}`;
+}
+
 function getNextMonthRange() {
   const now = new Date();
   const start = new Date(now.getFullYear(), now.getMonth() + 1, 1);
   const end = new Date(now.getFullYear(), now.getMonth() + 2, 0);
-  const toISO = (d: Date) => d.toISOString().split("T")[0];
-  return { start, end, startISO: toISO(start), endISO: toISO(end) };
+  return { start, end, startDisplay: formatDateDisplay(start), endDisplay: formatDateDisplay(end) };
 }
 
 export function AddShiftView() {
-  const { start, end, startISO, endISO } = useMemo(getNextMonthRange, []);
+  const { start, end, startDisplay, endDisplay } = useMemo(getNextMonthRange, []);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(start);
   const [selectedTypes, setSelectedTypes] = useState<ShiftType[]>([]);
   const [submitting, setSubmitting] = useState(false);
@@ -138,7 +151,7 @@ export function AddShiftView() {
       setSavedShifts((prev) => {
         const next: Record<string, ShiftType[]> = { ...prev };
         for (const d of daysToApply) {
-          const iso = new Date(start.getFullYear(), start.getMonth(), d).toISOString().split("T")[0];
+          const iso = formatDateLocal(new Date(start.getFullYear(), start.getMonth(), d));
           const existing = next[iso] ?? [];
           const merged = Array.from(new Set<ShiftType>([...existing, ...toAdd]));
           next[iso] = merged;
@@ -147,10 +160,8 @@ export function AddShiftView() {
       });
       const addedLabel = toAdd.length === 3 ? "כל המשמרות" : toAdd.map((t) => labelMap[t]).join(", ");
       if (daysToApply.length === 1) {
-        const iso = new Date(start.getFullYear(), start.getMonth(), daysToApply[0])
-          .toISOString()
-          .split("T")[0];
-        toast.success(`${addedLabel} נשמרו בהצלחה לתאריך ${iso}`);
+        const displayDate = formatDateDisplay(new Date(start.getFullYear(), start.getMonth(), daysToApply[0]));
+        toast.success(`${addedLabel} נשמרו בהצלחה לתאריך ${displayDate}`);
       } else {
         toast.success(`${addedLabel} נשמרו בהצלחה ל־${daysToApply.length} ימים`);
       }
@@ -195,7 +206,7 @@ export function AddShiftView() {
   };
 
   const makeIsoForDay = (day: number) =>
-    new Date(start.getFullYear(), start.getMonth(), day).toISOString().split("T")[0];
+    formatDateLocal(new Date(start.getFullYear(), start.getMonth(), day));
 
   // Global pointer up to finish drag even if pointer leaves grid
   useEffect(() => {
@@ -301,7 +312,7 @@ export function AddShiftView() {
                 </div>
               </div>
               <span className="text-xs text-muted-foreground">
-                ניתן לבחור תאריך בין {startISO} ל־{endISO}
+                ניתן לבחור תאריך בין {startDisplay} ל־{endDisplay}
               </span>
               {/* Multi-day selection info and clear */}
               {selectedDaysSet.size > 1 && (
@@ -399,14 +410,14 @@ export function AddShiftView() {
               </DropdownMenu>
               {selectedDate && (
                 <span className="text-xs text-muted-foreground">
-                  תאריך נבחר: {selectedDate.toISOString().split("T")[0]}
+                  תאריך נבחר: {formatDateDisplay(selectedDate)}
                 </span>
               )}
 
               {/* Chips for selected day */}
               {selectedDate && (
                 (() => {
-                  const iso = selectedDate.toISOString().split("T")[0];
+                  const iso = formatDateLocal(selectedDate);
                   const types = savedShifts[iso] ?? [];
                   if (types.length === 0) return null;
                   const chip = (label: string, color: string, value: ShiftType) => (
