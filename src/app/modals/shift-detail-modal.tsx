@@ -1,5 +1,7 @@
 import { X, Calendar, Clock, MapPin, User, CheckCircle } from "lucide-react";
 import { Shift } from "../components/shift-card";
+import { useState } from "react";
+import { SwapRequestModal } from "./swap-request-modal";
 
 interface ShiftDetailModalProps {
   shift: Shift;
@@ -8,9 +10,12 @@ interface ShiftDetailModalProps {
 }
 
 export function ShiftDetailModal({ shift, onClose, onCancel }: ShiftDetailModalProps) {
+  const [showSwapModal, setShowSwapModal] = useState(false);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-xl border border-card-border bg-background-secondary p-6 shadow-2xl">
+    <>
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div className="w-full max-w-md rounded-xl border border-card-border bg-background-secondary p-6 shadow-2xl">
         <div className="flex items-center justify-between mb-6">
           <h2>פרטי משמרת</h2>
           <button onClick={onClose} className="p-2 hover:bg-accent rounded-lg transition-colors">
@@ -90,11 +95,12 @@ export function ShiftDetailModal({ shift, onClose, onCancel }: ShiftDetailModalP
 
         {/* Actions */}
         <div className="flex gap-3">
-          {shift.status === "scheduled" && onCancel && (
+          {onCancel && (
             <button
               onClick={() => {
-                onCancel();
-                onClose();
+                // Open SwapRequestModal instead of onCancel/onClose
+                setShowSwapModal(true);
+                onCancel()
               }}
               className="flex-1 px-4 py-3 rounded-lg bg-destructive/10 text-destructive border border-destructive/30 hover:bg-destructive/20 transition-colors"
             >
@@ -108,7 +114,16 @@ export function ShiftDetailModal({ shift, onClose, onCancel }: ShiftDetailModalP
             סגירה
           </button>
         </div>
+        </div>
       </div>
-    </div>
+
+      {showSwapModal && (
+        <SwapRequestModal
+          shift={shift}
+          onClose={() => setShowSwapModal(false)}
+          onSubmit={(_data) => setShowSwapModal(false)}
+        />
+      )}
+    </>
   );
 }

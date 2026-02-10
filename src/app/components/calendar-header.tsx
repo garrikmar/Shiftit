@@ -1,12 +1,10 @@
-import { ChevronRight, ChevronLeft, Calendar as CalendarIcon } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 
 interface CalendarHeaderProps {
   currentMonth: string;
   onPrevious: () => void;
   onNext: () => void;
   onToday: () => void;
-  view: "day" | "week" | "month";
-  onViewChange: (view: "day" | "week" | "month") => void;
 }
 
 export function CalendarHeader({
@@ -14,8 +12,6 @@ export function CalendarHeader({
   onPrevious,
   onNext,
   onToday,
-  view,
-  onViewChange,
 }: CalendarHeaderProps) {
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
@@ -41,40 +37,6 @@ export function CalendarHeader({
           className="px-3 py-2 rounded-lg bg-primary/10 text-primary border border-primary/30 hover:bg-primary/20 transition-colors"
         >
           היום
-        </button>
-      </div>
-
-      {/* View Selector */}
-      <div className="flex items-center gap-1 p-1 rounded-lg bg-accent border border-border">
-        <button
-          onClick={() => onViewChange("day")}
-          className={`px-4 py-2 rounded-md transition-all ${
-            view === "day"
-              ? "bg-primary text-primary-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          יום
-        </button>
-        <button
-          onClick={() => onViewChange("week")}
-          className={`px-4 py-2 rounded-md transition-all ${
-            view === "week"
-              ? "bg-primary text-primary-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          שבוע
-        </button>
-        <button
-          onClick={() => onViewChange("month")}
-          className={`px-4 py-2 rounded-md transition-all ${
-            view === "month"
-              ? "bg-primary text-primary-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          חודש
         </button>
       </div>
     </div>
