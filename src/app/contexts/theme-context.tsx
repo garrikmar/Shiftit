@@ -16,7 +16,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (stored === 'light' || stored === 'dark') {
       return stored;
     }
-    return 'dark';
+    return 'light';
   });
 
   // Apply theme class immediately on mount

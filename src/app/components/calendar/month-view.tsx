@@ -31,7 +31,13 @@ export function MonthView({ monthInfo, shifts, onShiftClick }: MonthViewProps) {
           const shift = shifts.find((s) => s.date === dateStr);
 
           return (
-            <div key={i} className="bg-card min-h-[100px] p-2 hover:bg-accent/50 transition-colors">
+            <div
+              key={i}
+              className={`bg-card min-h-[100px] p-2 hover:bg-accent/50 transition-colors ${
+                shift ? "cursor-pointer" : ""
+              }`}
+              onClick={() => shift && onShiftClick(shift)}
+            >
               <div
                 className={`text-sm mb-1 ${
                   shift
@@ -49,8 +55,7 @@ export function MonthView({ monthInfo, shifts, onShiftClick }: MonthViewProps) {
               </div>
               {shift && (
                 <div
-                  onClick={() => onShiftClick(shift)}
-                  className={`p-1 rounded border-r-2 cursor-pointer transition-colors mb-1 ${
+                  className={`hidden sm:block p-1 rounded border-r-2 transition-colors mb-1 ${
                     shift.title.includes("לילה")
                       ? "bg-purple-500/10 border-purple-500 text-purple-700 dark:text-purple-300 hover:bg-purple-500/20"
                       : shift.title.includes("ערב")
