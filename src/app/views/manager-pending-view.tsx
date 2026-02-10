@@ -1,8 +1,9 @@
-import { ShiftCard, Shift } from "../components/shift-card";
+import { Shift } from "../components/shift-card";
 import { FilterChips } from "../components/filter-chips";
 import { useState } from "react";
 import { EmptyState } from "../components/empty-state";
-import { CheckCircle, AlertCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
+import { PendingRequestGroup } from "../components/manager/pending-request-group";
 
 interface ManagerPendingViewProps {
   shifts: Shift[];
@@ -48,44 +49,18 @@ export function ManagerPendingView({ shifts, onRequestClick }: ManagerPendingVie
           />
         ) : (
           <div className="space-y-6">
-            {urgent.length > 0 && (
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <AlertCircle className="w-5 h-5 text-destructive" />
-                  <h3>דחוף - משמרות בימים הקרובים ({urgent.length})</h3>
-                </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  {urgent.map((shift) => (
-                    <div key={shift.id} className="relative">
-                      <ShiftCard
-                        shift={shift}
-                        onClick={() => onRequestClick(shift)}
-                      />
-                      <div className="absolute top-2 left-2">
-                        <span className="px-2 py-1 rounded-full text-xs bg-destructive/20 text-destructive border border-destructive/30">
-                          דחוף
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {regular.length > 0 && (
-              <div>
-                <h3 className="mb-4">בקשות רגילות ({regular.length})</h3>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  {regular.map((shift) => (
-                    <ShiftCard
-                      key={shift.id}
-                      shift={shift}
-                      onClick={() => onRequestClick(shift)}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
+            <PendingRequestGroup
+              title="דחוף - משמרות בימים הקרובים"
+              shifts={urgent}
+              isUrgent={true}
+              onRequestClick={onRequestClick}
+            />
+            
+            <PendingRequestGroup
+              title="בקשות רגילות"
+              shifts={regular}
+              onRequestClick={onRequestClick}
+            />
           </div>
         )}
       </div>

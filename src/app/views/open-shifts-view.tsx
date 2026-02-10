@@ -1,9 +1,10 @@
-import { ShiftCard, Shift } from "../components/shift-card";
+import { Shift } from "../components/shift-card";
 import { FilterChips } from "../components/filter-chips";
 import { useState, useMemo } from "react";
 import { EmptyState } from "../components/empty-state";
 import { Briefcase } from "lucide-react";
 import { INITIAL_UNCOVERED_SHIFTS } from "../data/mock-data";
+import { OpenShiftsGrid } from "../components/shifts/open-shifts-grid";
 
 interface OpenShiftsViewProps {
   shifts: Shift[];
@@ -94,15 +95,7 @@ export function OpenShiftsView({ shifts: initialShifts, onTakeShift }: OpenShift
             description="נסו לשנות את הסינון או בדקו שוב מאוחר יותר."
           />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredShifts.map((shift) => (
-              <ShiftCard
-                key={shift.id}
-                shift={shift}
-                onTake={() => onTakeShift(shift)}
-              />
-            ))}
-          </div>
+          <OpenShiftsGrid shifts={filteredShifts} onTakeShift={onTakeShift} />
         )}
       </div>
     </div>
