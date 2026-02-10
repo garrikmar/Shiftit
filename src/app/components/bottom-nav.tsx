@@ -8,16 +8,14 @@ interface BottomNavProps {
 
 export function BottomNav({ activeView, onViewChange, isManager }: BottomNavProps) {
   const employeeMenuItems = [
-    { id: "calendar", label: "לוח", icon: Calendar },
-    { id: "my-shifts", label: "המשמרות", icon: Home },
+    { id: "calendar", label: "המשמרות", icon: Calendar },
     { id: "open-shifts", label: "פתוחות", icon: Briefcase },
     { id: "requests", label: "בקשות", icon: FileText },
     { id: "add-shift", label: "הוספה", icon: Plus },
   ];
 
   const managerMenuItems = [
-    { id: "calendar", label: "לוח", icon: Calendar },
-    { id: "my-shifts", label: "שלי", icon: Home },
+    { id: "calendar", label: "המשמרות", icon: Calendar },
     { id: "pending", label: "ממתינות", icon: FileText },
     { id: "team", label: "צוות", icon: Users },
     { id: "add-shift", label: "הוספה", icon: Plus },

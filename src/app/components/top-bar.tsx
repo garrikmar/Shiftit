@@ -33,12 +33,6 @@ export function TopBar({ title, onMenuClick, showSearch = true, notificationCoun
 
         {/* Left Side - Search, Theme Toggle & Notifications */}
         <div className="flex items-center gap-3">
-          {showSearch && (
-            <button className="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg bg-input-background border border-border hover:border-primary/50 transition-colors">
-              <Search className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">חיפוש...</span>
-            </button>
-          )}
           
           {/* Theme Toggle Button */}
           <button 

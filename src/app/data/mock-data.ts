@@ -79,6 +79,9 @@ export const INITIAL_TEAM_MEMBERS: TeamMember[] = [
 ];
 
 export const INITIAL_UNCOVERED_SHIFTS: UncoveredShift[] = [
+  { id: "u4", title: "משמרת בוקר", date: "12/02/2026", time: "07:00 - 15:00" },
+  { id: "u5", title: "משמרת ערב", date: "18/02/2026", time: "15:00 - 23:00" },
+  { id: "u6", title: "משמרת לילה", date: "24/02/2026", time: "23:00 - 07:00" },
   { id: "u1", title: "משמרת ערב", date: "15/03/2026", time: "15:00 - 23:00" },
   { id: "u2", title: "משמרת לילה", date: "20/03/2026", time: "23:00 - 07:00" },
   { id: "u3", title: "משמרת בוקר", date: "25/03/2026", time: "07:00 - 15:00" },

@@ -10,8 +10,7 @@ interface SidebarProps {
 
 export function Sidebar({ activeView, onViewChange, isManager, isOpen = false, onToggle }: SidebarProps) {
   const employeeMenuItems = [
-    { id: "calendar", label: "לוח שנה", icon: Calendar },
-    { id: "my-shifts", label: "המשמרות שלי", icon: Home },
+    { id: "calendar", label: "המשמרות שלי", icon: Calendar },
     { id: "add-shift", label: "מילוי משמרות", icon: Plus },
     { id: "open-shifts", label: "משמרות פתוחות", icon: Briefcase },
     { id: "requests", label: "בקשות שלי", icon: FileText },
@@ -19,8 +18,7 @@ export function Sidebar({ activeView, onViewChange, isManager, isOpen = false, o
   ];
 
   const managerMenuItems = [
-    { id: "calendar", label: "לוח שנה", icon: Calendar },
-    { id: "my-shifts", label: "המשמרות שלי", icon: Home },
+    { id: "calendar", label: "המשמרות שלי", icon: Calendar },
     { id: "team", label: "ניהול צוות", icon: Users },
     { id: "add-shift", label: "מילוי משמרות", icon: Plus },
     { id: "pending", label: "בקשות ממתינות", icon: FileText },

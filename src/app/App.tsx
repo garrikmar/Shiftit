@@ -4,7 +4,6 @@ import { TopBar } from "./components/top-bar";
 import { Sidebar } from "./components/sidebar";
 import { BottomNav } from "./components/bottom-nav";
 import { CalendarView } from "./views/calendar-view";
-import { MyShiftsView } from "./views/my-shifts-view";
 import { OpenShiftsView } from "./views/open-shifts-view";
 import { RequestsView } from "./views/requests-view";
 import { ManagerPendingView } from "./views/manager-pending-view";
@@ -185,14 +184,7 @@ export default function App() {
             shifts={shifts}
             onShiftClick={handleShiftClick}
             onCancelShift={handleCancelShift}
-          />
-        );
-      case "my-shifts":
-        return (
-          <MyShiftsView
-            shifts={shifts}
-            onShiftClick={handleShiftClick}
-            onCancelShift={handleCancelShift}
+            onViewOpenShifts={() => setActiveView("open-shifts")}
           />
         );
       case "open-shifts":
@@ -252,7 +244,7 @@ export default function App() {
 
           <div className="flex-1 flex flex-col overflow-hidden">
             <TopBar
-              title="ShiftIT"
+              title=""
               notificationCount={3}
               onNotificationClick={() => setActiveView("notifications")}
               onMenuClick={() => setSidebarOpen(!sidebarOpen)}
@@ -299,10 +291,22 @@ export default function App() {
               setShowShiftDetailModal(false);
               setSelectedShift(null);
             }}
-            onCancel={() => {
-              setShowShiftDetailModal(false);
-              handleCancelShift(selectedShift);
-            }}
+            onCancel={
+              selectedShift.status === "scheduled" || selectedShift.status === "approved"
+                ? () => {
+                    setShowShiftDetailModal(false);
+                    handleCancelShift(selectedShift);
+                  }
+                : undefined
+            }
+            onTake={
+              selectedShift.status === "open"
+                ? () => {
+                    setShowShiftDetailModal(false);
+                    handleTakeShift(selectedShift);
+                  }
+                : undefined
+            }
           />
         )}
       </div>

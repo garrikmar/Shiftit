@@ -7,9 +7,10 @@ interface ShiftDetailModalProps {
   shift: Shift;
   onClose: () => void;
   onCancel?: () => void;
+  onTake?: () => void;
 }
 
-export function ShiftDetailModal({ shift, onClose, onCancel }: ShiftDetailModalProps) {
+export function ShiftDetailModal({ shift, onClose, onCancel, onTake }: ShiftDetailModalProps) {
   const [showSwapModal, setShowSwapModal] = useState(false);
 
   return (
@@ -105,6 +106,17 @@ export function ShiftDetailModal({ shift, onClose, onCancel }: ShiftDetailModalP
               className="flex-1 px-4 py-3 rounded-lg bg-destructive/10 text-destructive border border-destructive/30 hover:bg-destructive/20 transition-colors"
             >
               לא יכול/ה להגיע
+            </button>
+          )}
+          {onTake && (
+            <button
+              onClick={() => {
+                onTake();
+                onClose();
+              }}
+              className="flex-1 px-4 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              אני רוצה את המשמרת
             </button>
           )}
           <button

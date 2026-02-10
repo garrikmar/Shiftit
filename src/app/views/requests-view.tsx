@@ -14,7 +14,12 @@ export function RequestsView({ shifts, onRequestClick }: RequestsViewProps) {
 
   return (
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-6">
-      <div className="max-w-4xl mx-auto p-4 lg:p-6">
+      <div className="max-w-6xl mx-auto p-4 lg:p-6">
+        <div className="mb-6">
+          <h2 className="mb-2">הבקשות שלי</h2>
+          <p className="text-muted-foreground">מעקב אחר סטטוס בקשות והחלפות</p>
+        </div>
+
         {myRequests.length === 0 ? (
           <EmptyState
             icon={FileText}

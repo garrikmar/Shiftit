@@ -220,12 +220,13 @@ export function AddShiftView() {
   }, [isDragging, dragStartDay, dragCurrentDay, daysInMonth]);
 
   return (
-    <div className="p-4 lg:p-6 space-y-6 animate-in fade-in duration-300">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">הוספת משמרת - חודש הבא</h1>
-      </div>
+    <div className="flex-1 overflow-y-auto pb-20 lg:pb-6">
+      <div className="max-w-6xl mx-auto p-4 lg:p-6 space-y-6 animate-in fade-in duration-300">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold">הוספת משמרת - חודש הבא</h2>
+        </div>
 
-      <Card className="max-w-xl">
+        <Card className="w-full">
         <CardHeader>
           <CardTitle>בחר/י יום במשבצת ולאחר מכן סוג משמרת</CardTitle>
         </CardHeader>
@@ -512,6 +513,7 @@ export function AddShiftView() {
           </form>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
